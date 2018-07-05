@@ -1,0 +1,25 @@
+@charset "UTF-8"
+
+// =============================================================================
+// Predefined media query
+// =============================================================================
+$breakpoints: ( 'sm': (min-width: 48em), 'md': (min-width: 64em), 'lg': (min-width: 75em) ) // 768px, 1024px, 1200px (for base font size 16px)
+
+// predefined brakepoints (equal to grid framework brakepoints)
+=mq($breakpoint)
+  $raw-query: map-get($breakpoints, $breakpoint)
+
+  @if $raw-query
+    $query: if(type-of($raw-query) == 'string', unquote($raw-query), inspect($raw-query))
+    @media #{$query}
+      @content
+  @else
+    @error 'No value found for `#{$breakpoint}`. '+ 'Please make sure it is defined in `$breakpoints` map.'
+
+
+// =============================================================================
+// Custom media query
+// =============================================================================
+=mqc($query)
+  @media #{$query}
+    @content

@@ -1,0 +1,16 @@
+{
+  "name": "vinea",
+  "version": "0.0.1",
+  "devDependencies": {
+    "grunt": "0.4.5",
+    "grunt-contrib-watch": "~0.6.1",
+    "grunt-sass": "*",
+    "grunt-nunjucks-2-html": "^1.0.5",
+    "nunjucks": "^2.5.2"
+  },
+  "dependencies": {
+    "flexboxgrid": "^6.3.1",
+    "jquery": "^3.1.1",
+    "moment": "^2.15.1"
+  }
+}

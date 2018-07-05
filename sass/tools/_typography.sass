@@ -1,0 +1,92 @@
+// =============================================================================
+// Line-height px to em
+// =============================================================================
+=line-height($font-size)
+  line-height: ($font-size / $base-font-size)#{em}
+
+
+// =============================================================================
+// Line-height based on font-size
+// =============================================================================
+@function line-height-based-font-size($line-height, $font-size)
+  @return ceil($font-size / $line-height) * ($line-height / $font-size)
+
+=auto-line-height($font-size)
+  line-height: line-height-based-font-size($base-line-height, $font-size)
+
+
+// =============================================================================
+// Font size
+// =============================================================================
+@function font-size-fallback($font-size)
+  @return $font-size * 1px
+
+=font-size($font-size, $force: false)
+  @if ($force == true)
+    font-size: font-size-fallback($font-size) #{!important}
+    font-size: ($font-size / $base-font-size) * 1rem #{!important}
+  @else
+    font-size: font-size-fallback($font-size)
+    font-size: ($font-size / $base-font-size) * 1rem
+
+
+// =============================================================================
+// String Replace
+// =============================================================================
+@function str-replace($string, $search, $replace: "")
+  $index: str-index($string, $search)
+  @if $index
+    @return str-slice($string, 1, $index - 1) + $replace + str-replace(str-slice($string, $index + str-length($search)), $search, $replace)
+  @return $string
+
+
+// =============================================================================
+// Font Face
+// =============================================================================
+=font-face($name, $path, $weight: null, $style: null, $exts: eot otf woff2 woff ttf svg)
+  $src: null
+
+  $extmods: (eot: "?",svg: "#" + str-replace($name, " ", "_"))
+
+  $formats: (  otf: "opentype",ttf: "truetype")
+
+  @each $ext in $exts
+    $extmod: if(map-has-key($extmods, $ext), $ext + map-get($extmods, $ext), $ext)
+    $format: if(map-has-key($formats, $ext), map-get($formats, $ext), $ext)
+    $src: append($src, url(quote($path + "." + $extmod)) format(quote($format)), comma)
+
+
+  @font-face
+    font-family: quote($name)
+    font-style: $style
+    font-weight: $weight
+    src: $src
+
+
+// =============================================================================
+// Word wrap
+// =============================================================================
+=word-wrap()
+  overflow-wrap: break-word
+  word-wrap: break-word
+  -ms-word-break: break-all
+  word-break: break-word
+  -ms-hyphens: auto
+  -moz-hyphens: auto
+  -webkit-hyphens: auto
+  hyphens: auto
+
+
+// =============================================================================
+// Placeholder
+// =============================================================================
+
+=placeholder()
+  &::-webkit-input-placeholder
+    @content
+  &::-moz-placeholder
+    @content
+  &:-ms-input-placeholder
+    @content
+  &:-moz-placeholder
+    @content

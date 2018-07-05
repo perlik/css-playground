@@ -1,0 +1,48 @@
+@charset "UTF-8"
+
+// =============================================================================
+// Clearfix
+// =============================================================================
+.clearfix
+  &:before
+    content: " "
+    display: table
+  &:after
+    content: " "
+    display: table
+    clear: both
+
+
+// =============================================================================
+// Resets
+// =============================================================================
+.u-no-padding-h
+  padding-left: 0 !important
+  padding-right: 0 !important
+
+.u-no-margin-v
+  margin-top: 0 !important
+  margin-bottom: 0 !important
+
+.u-max-height-row
+  height: 100%
+
+.u-max-width-row
+  width: 100%
+
+.u-flex-grow
+  flex: 1
+
+
+// =============================================================================
+// Backgrounds
+// =============================================================================
+=bg($image, $position: center)
+  background: url("#{$images_path}#{$image}") no-repeat $position
+
+=span-bg($image, $width, $height, $bg-size-type: cover)
+  display: inline-block
+  width: $width#{px}
+  height: $height#{px}
+  background: url("#{$images_path}#{$image}") no-repeat center
+  background-size: $bg-size-type
